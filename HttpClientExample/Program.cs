@@ -27,6 +27,22 @@ Console.WriteLine(JsonSerializer.Serialize(responseGetAll));
 var responseGetById = await objectRestfulApiDevApi.GetByIdAsync(4, reqResUsersApiApiKey);
 Console.WriteLine(JsonSerializer.Serialize(responseGetById));
 
+try
+{
+    responseGetById = await objectRestfulApiDevApi.GetByIdAsync(5000, reqResUsersApiApiKey);
+    Console.WriteLine(JsonSerializer.Serialize(responseGetById));
+}
+catch (ApiException ex)
+{
+    // Translate the ApiException into an HttpResponseMessage
+    var errorMessage = ex.HasContent ? ex.Content : $"API error: {ex.Message}";
+    //return new HttpResponseMessage(ex.StatusCode)
+    //{
+    //    Content = new StringContent(errorMessage)
+    //};
+
+}
+
 //var newUser = new UserDataRequest
 //{
 //    Email = "teste@yahoo.com",
@@ -36,3 +52,5 @@ Console.WriteLine(JsonSerializer.Serialize(responseGetById));
 //};
 //var responsePost = await objectRestfulApiDevApi.PostAsync(newUser, reqResUsersApiApiKey);
 //Console.WriteLine(JsonSerializer.Serialize(responsePost));
+
+
